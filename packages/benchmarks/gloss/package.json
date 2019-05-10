@@ -1,0 +1,22 @@
+{
+  "name": "table-gloss-table",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "devServer --package gloss",
+    "build": "devBuild --package gloss"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "benchmarks-utils": "1.0.0",
+    "gloss": "2.5.0"
+  },
+  "devDependencies": {
+    "dev-tasks": "1.0.0"
+  },
+  "benchmarks": {
+    "name": "gloss",
+    "useCSS": true,
+    "link": "https://github.com/paypal/gloss"
+  }
+}

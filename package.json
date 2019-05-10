@@ -19,7 +19,7 @@
     "file-loader": "0.10.1",
     "husky": "0.13.3",
     "lerna": "2.0.0-rc.4",
-    "lighthouse": "1.6.5",
+    "lighthouse": "5.0.0",
     "lint-staged": "3.4.0",
     "prettier": "1.2.2",
     "react": "^15.5.4",
@@ -29,12 +29,12 @@
     "style-loader": "0.16.1",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.1",
-    "yargs": "6.6.0"
+    "yargs": "6.6.0",
+    "chrome-launcher": "0.10.7"
   },
   "scripts": {
     "benchmark": "node ./packages/tests/",
-    "format": "find . -name '*.js' | grep -v node_modules | xargs prettier --trailing-comma es5 --single-quote --write",
-    "precommit": "lint-staged"
+    "format": "find . -name '*.js' | grep -v node_modules | xargs prettier --trailing-comma es5 --single-quote --write"
   },
   "lint-staged": {
     "*.js": [

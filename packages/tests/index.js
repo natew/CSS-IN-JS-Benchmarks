@@ -10,9 +10,7 @@ const fs = require('fs');
 const { argv } = require('yargs');
 
 const Lighthouse = require('lighthouse');
-const {
-  ChromeLauncher,
-} = require('lighthouse/lighthouse-cli/chrome-launcher.js');
+const chromeLauncher = require('chrome-launcher');
 
 const packageJson = 'package.json';
 
@@ -21,22 +19,16 @@ const filterPackages = argv._.length ? argv._ : null;
 run();
 
 function launchChromeAndRunLighthouse(url, flags, config) {
-  const launcher = new ChromeLauncher({
-    port: 9222,
-    autoSelectChrome: true,
-  });
+  const launcher = chromeLauncher.launch({ port: 9222 });
+  let chrome;
   return launcher
-    .isDebuggerReady()
-    .catch(() => {
-      if (flags.skipAutolaunch) {
-        return;
-      }
-      return launcher.run();
+    .then(x => {
+      chrome = x;
+      return Lighthouse(url, flags, config);
     })
-    .then(() => Lighthouse(url, flags, config))
-    .then(results => launcher.kill().then(() => results))
+    .then(results => chrome.kill().then(() => results))
     .catch(err => {
-      return launcher.kill().then(() => {
+      return chrome.kill().then(() => {
         throw err;
       }, console.error);
     });
@@ -79,11 +71,14 @@ function getAverageValue(arr) {
 }
 
 async function runTestCase(url) {
-  const config = require('lighthouse/lighthouse-core/config/perf.json');
   const flags = { maxWaitForLoad: 60000, interactive: true };
 
   const mountDuration = [];
   const rerenderDuration = [];
+  const config = {
+    ...require('lighthouse/lighthouse-core/config/perf-config'),
+  };
+  console.log('with config', config);
 
   let butch = true;
 
@@ -94,6 +89,7 @@ async function runTestCase(url) {
         flags,
         config
       );
+      console.log('got', currentRes);
       const values = currentRes.audits['user-timings'].extendedInfo.value;
       const mountTime = values[2].duration;
       mountTime && mountDuration.push(mountTime);

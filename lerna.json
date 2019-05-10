@@ -18,6 +18,7 @@
     "packages/benchmarks/styled-components/simple",
     "packages/benchmarks/aphrodite",
     "packages/benchmarks/cxs",
+    "packages/benchmarks/gloss",
     "packages/benchmarks/emotion/simple",
     "packages/benchmarks/emotion/extract-static",
     "packages/benchmarks/emotion/css-mode",

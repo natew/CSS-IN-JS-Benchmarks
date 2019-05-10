@@ -9,6 +9,7 @@ Big Table examples, use:
 - aphrodite
 - glamorous
 - glam
+- gloss
 - fela
 - react-jss
 - radium
